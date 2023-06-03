@@ -5,7 +5,7 @@ A 'BackUp' class which copies a target file or folder to set output folders. Det
 
 I made this since I was frustrated with syncing behaviours of services like OneDrive, which when used to sync files that were actively in use, would cause lag and other issues.
 
-This method side steps the issues by allowing me to schedule when I copy certain folders to OneDrive, giving me incremental multi-version backup and synchronisation through the service without distributively trying to synchronise files that are always changing like game saves and settings.
+This method side steps the issue by allowing me to schedule when I copy certain folders to OneDrive, giving me incremental multi-version backup and synchronisation without OneDrive disruptively trying to synchronise files that are always changing like game saves and settings.
 
 ## How-To Use
 
