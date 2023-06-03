@@ -1,0 +1,26 @@
+2023-06-03 15:02:36 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 1\important_folder - 2023-06-03 15-02 PM'
+2023-06-03 15:02:36 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 2\important_folder - 2023-06-03 15-02 PM'
+2023-06-03 15:02:36 | INFO | important_file | File | Saved 'F:\File Backup\important_file - 2023-06-03 15-02 PM.jpg'
+2023-06-03 15:03:01 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 1\important_folder - 2023-06-03 15-03 PM'
+2023-06-03 15:03:01 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 2\important_folder - 2023-06-03 15-03 PM'
+2023-06-03 15:03:01 | INFO | important_file | File | Saved 'F:\File Backup\important_file - 2023-06-03 15-03 PM.jpg'
+2023-06-03 15:03:15 | INFO | important_folder | Folder | Did not save 'F:\Folder Backup 1\important_folder - 2023-06-03 15-03 PM' - file already exists
+2023-06-03 15:03:15 | INFO | important_folder | Folder | Did not save 'F:\Folder Backup 2\important_folder - 2023-06-03 15-03 PM' - file already exists
+2023-06-03 15:03:15 | INFO | important_file | File | Saved 'F:\File Backup\important_file - 2023-06-03 15-03 PM.jpg'
+2023-06-03 15:05:12 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 1\important_folder - 2023-06-03 15-05 PM'
+2023-06-03 15:05:12 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 2\important_folder - 2023-06-03 15-05 PM'
+2023-06-03 15:05:12 | INFO | important_file | File | Saved 'F:\File Backup\important_file - 2023-06-03 15-05 PM.jpg'
+2023-06-03 15:10:24 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 1\important_folder - 2023-06-03 15-10 PM'
+2023-06-03 15:10:24 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 2\important_folder - 2023-06-03 15-10 PM'
+2023-06-03 15:10:24 | INFO | important_file | File | Saved 'F:\File Backup\important_file - 2023-06-03 15-10 PM.jpg'
+2023-06-03 15:10:24 | INFO | important_file | File | Deleted 'F:\File Backup\important_file - 2023-06-03 15-02 PM.jpg' - old file outside limit (3)
+2023-06-03 15:14:31 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 1\important_folder - 2023-06-03 15-14 PM'
+2023-06-03 15:14:31 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 2\important_folder - 2023-06-03 15-14 PM'
+2023-06-03 15:14:31 | INFO | important_file | File | Saved 'F:\File Backup\important_file - 2023-06-03 15-14 PM.jpg'
+2023-06-03 15:14:31 | INFO | important_file | File | Deleted 'F:\File Backup\important_file - 2023-06-03 15-03 PM.jpg' - old file outside limit (3)
+2023-06-03 15:18:29 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 1\important_folder - 2023-06-03 15-18 PM'
+2023-06-03 15:18:29 | INFO | important_folder | Folder | Deleted 'F:\Folder Backup 1\important_folder - 2023-06-03 15-02 PM' - old folder outside limit (5)
+2023-06-03 15:18:29 | INFO | important_folder | Folder | Saved 'F:\Folder Backup 2\important_folder - 2023-06-03 15-18 PM'
+2023-06-03 15:18:29 | INFO | important_folder | Folder | Deleted 'F:\Folder Backup 2\important_folder - 2023-06-03 15-02 PM' - old folder outside limit (5)
+2023-06-03 15:18:29 | INFO | important_file | File | Saved 'F:\File Backup\important_file - 2023-06-03 15-18 PM.jpg'
+2023-06-03 15:18:29 | INFO | important_file | File | Deleted 'F:\File Backup\important_file - 2023-06-03 15-05 PM.jpg' - old file outside limit (3)
