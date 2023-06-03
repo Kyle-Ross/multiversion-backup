@@ -25,7 +25,7 @@ class BackUp:
         level=logging.INFO,
         format=f"%(asctime)s | %(levelname)s | %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
-        filename="example logs.txt"
+        filename="logs.txt"
     )
 
     # Get current datetime as a string
