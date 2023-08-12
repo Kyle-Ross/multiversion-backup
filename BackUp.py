@@ -7,8 +7,8 @@ import re
 
 # Defining class and functions representing a single source / output pair
 class BackUp:
-    def __init__(self, source, output_targets, prefix_string, limit_number):
-        self.prefix = prefix_string.replace("-", "")
+    def __init__(self, source, output_targets, backup_name, limit_number):
+        self.prefix = backup_name.replace("-", "")
         self.limit = limit_number
         self.source = source
         if type(output_targets) == str:
