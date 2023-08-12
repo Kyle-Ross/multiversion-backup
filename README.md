@@ -40,7 +40,7 @@ backup_object.copy()
 ```python
 from BackUp import BackUp
 
-folder_backup = BackUp(r"F:\Folder",  # Source folder or file path as a string
+folder_backup = BackUp(r"F:\Folder",  # Source folder or file log_path as a string
                        [r"F:\Folder Backup 1", r"F:\Folder Backup 2"],  # String or list of output folders
                        "important_folder",  # Prefix for the file name and log messages
                        5)  # Maximum amount of backups to keep

@@ -119,7 +119,7 @@ class BackUp:
                         logging.info(
                             f"{self.prefix} | File | Deleted '{file[0]}' - old file outside limit ({self.limit})")
 
-    # Run the 'copy_file' or 'copy_folder' functions based on path type detection of the source
+    # Run the 'copy_file' or 'copy_folder' functions based on log_path type detection of the source
     # If file, pass the file extention to the 'copy_file' argument
     def copy(self):
         if os.path.isdir(self.source):
