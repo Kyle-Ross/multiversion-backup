@@ -39,7 +39,7 @@ class Log:
             # Get log type
             line_dict["logtype"] = list_items[1]
 
-            # Get identifier aka prefix
+            # Get identifier aka backup_name
             line_dict["backup_name"] = list_items[2]
 
             # Get file type
@@ -47,7 +47,7 @@ class Log:
 
             # Get action that was taken per line
             line_dict["action"] = list_items[4].split("'")[0].strip()
-            accepted_actions = ('Saved', 'Deleted')
+            accepted_actions = ('Saved', 'Deleted', 'DidNothing')
             if line_dict["action"] not in accepted_actions:
                 raise Exception(f"Log file features unknown action status not in {accepted_actions}, please review")
 
@@ -73,22 +73,36 @@ class Log:
         if action not in allowed:
             raise Exception(f"Argument for self.action() must be in f{allowed}")
         # Checking backup_name input
+        exists = 'y'
         if backup_name not in [x["backup_name"] for x in self.log_data]:
-            raise Exception(f"Argument for self.backup_names() does not exist in log file")
+            exists = 'n'
+            while True:
+                user_input = input(f"Argument for self.backup_names() does not exist in log file. \n"
+                                   f"This may be the first backup or a mispelling of the backup name. \n"
+                                   f"Do you want to continue with backup '{backup_name}'? (y/n): \n").strip().lower()
+                if user_input == 'n':
+                    raise Exception(f"Rename self.backup_names() and re-run script")
+                elif user_input != 'y':
+                    print("Invalid input. Please enter 'y' or 'n'.")
+                else:
+                    print("Continuing with backup operation.")
+                    break
 
-        # Filter log_data property per backup_name
-        self.log_data = [x for x in self.original_log_data if x["backup_name"] == backup_name]
+        # Only set log values if backup name existed at outset
+        if exists == 'y':
+            # Filter log_data property per backup_name
+            self.log_data = [x for x in self.original_log_data if x["backup_name"] == backup_name]
 
-        # Filter log_data property per action
-        if action == 'all':
-            self.log_data = self.log_data
-        if action == 'saves':
-            self.log_data = [x for x in self.log_data if x["action"] == 'Saved']
-        if action == 'deletes':
-            self.log_data = [x for x in self.log_data if x["action"] == 'Deleted']
+            # Filter log_data property per action
+            if action == 'all':
+                self.log_data = self.log_data
+            if action == 'saves':
+                self.log_data = [x for x in self.log_data if x["action"] == 'Saved']
+            if action == 'deletes':
+                self.log_data = [x for x in self.log_data if x["action"] == 'Deleted']
 
-        # Update values for max properties based on the now filtered self.log_data
-        self.set_properties()
+            # Update values for max properties based on the now filtered self.log_data
+            self.set_properties()
 
         # Return self for argument chaining
         return self
