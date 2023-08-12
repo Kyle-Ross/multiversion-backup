@@ -2,18 +2,19 @@ from datetime import datetime
 
 
 class Log:
+    """Provides access to log file data for the BackUp class and its methods"""
     def __init__(self, log_path):
         self.original_log_data = None
         self.log_path = log_path
         self.log_data = []  # Storage for unpacked log log_data dicts
         self.get_logs()  # Get the log log_data
-        self.max_log_dt = None
-        self.max_log_line = None
-        self.max_log_type = None
-        self.max_backup_name = None
-        self.max_log_filetype = None
-        self.max_log_action = None
-        self.set_log_max()  # Setting undefined properties using function below
+        self.last_log_dt = None
+        self.last_log_line = None
+        self.last_log_type = None
+        self.last_backup_name = None
+        self.last_log_filetype = None
+        self.last_log_action = None
+        self.set_properties()  # Setting 'None' properties using function below
 
     def get_logs(self):
         # Open the file in read mode
@@ -57,13 +58,13 @@ class Log:
         self.original_log_data = self.log_data
 
     # Function to update max line values using self.log_data
-    def set_log_max(self):
-        self.max_log_dt = max([x["datetime"] for x in self.log_data])
-        self.max_log_line = [x for x in self.log_data if x["datetime"] == self.max_log_dt][-1]
-        self.max_log_type = self.max_log_line["logtype"]
-        self.max_backup_name = self.max_log_line["backup_name"]
-        self.max_log_filetype = self.max_log_line["filetype"]
-        self.max_log_action = self.max_log_line["action"]
+    def set_properties(self):
+        self.last_log_dt = max([x["datetime"] for x in self.log_data])
+        self.last_log_line = [x for x in self.log_data if x["datetime"] == self.last_log_dt][-1]
+        self.last_log_type = self.last_log_line["logtype"]
+        self.last_backup_name = self.last_log_line["backup_name"]
+        self.last_log_filetype = self.last_log_line["filetype"]
+        self.last_log_action = self.last_log_line["action"]
 
     def filter_logs(self, backup_name, action):
 
@@ -87,10 +88,7 @@ class Log:
             self.log_data = [x for x in self.log_data if x["action"] == 'Deleted']
 
         # Update values for max properties based on the now filtered self.log_data
-        self.set_log_max()
+        self.set_properties()
 
         # Return self for argument chaining
         return self
-
-myobj = Log('logs.txt')
-print(myobj.log_data)

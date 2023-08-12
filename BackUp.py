@@ -1,4 +1,5 @@
 from datetime import datetime
+from Log import Log
 import logging
 import shutil
 import os
@@ -6,8 +7,8 @@ import re
 
 
 # Defining class and functions representing a single source / output pair
-class BackUp:
-    def __init__(self, source, output_targets, backup_name, limit_number):
+class BackUp(Log):
+    def __init__(self, source, output_targets, backup_name, limit_number, log_path='logs.txt'):
         self.prefix = backup_name.replace("-", "")
         self.limit = limit_number
         self.source = source
@@ -20,13 +21,16 @@ class BackUp:
             logging.error(output_exception_message)
             raise Exception(output_exception_message)
 
-    # Defining logging settings
-    logging.basicConfig(
-        level=logging.INFO,
-        format=f"%(asctime)s | %(levelname)s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        filename="logs.txt"
-    )
+        # Defining logging settings, creating log file if it does not already exist
+        logging.basicConfig(
+            level=logging.INFO,
+            format=f"%(asctime)s | %(levelname)s | %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+            filename=log_path
+        )
+
+        # Inheriting everything from the Log superclass
+        super().__init__(log_path)
 
     # Get current datetime as a string
     def get_dt_str(self):
