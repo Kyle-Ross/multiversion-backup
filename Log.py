@@ -3,6 +3,7 @@ from datetime import datetime
 
 class Log:
     """Provides access to log file data for the BackUp class and its methods"""
+
     def __init__(self, log_path):
         self.original_log_data = None
         self.log_path = log_path
@@ -14,7 +15,15 @@ class Log:
         self.last_backup_name = None
         self.last_log_filetype = None
         self.last_log_action = None
-        self.set_properties()  # Setting 'None' properties using function below
+
+    # Function to update max line values using self.log_data
+    def set_properties(self):
+        self.last_log_dt = max([x["datetime"] for x in self.log_data])
+        self.last_log_line = [x for x in self.log_data if x["datetime"] == self.last_log_dt][-1]
+        self.last_log_type = self.last_log_line["logtype"]
+        self.last_backup_name = self.last_log_line["backup_name"]
+        self.last_log_filetype = self.last_log_line["filetype"]
+        self.last_log_action = self.last_log_line["action"]
 
     def get_logs(self):
         # Open the file in read mode
@@ -56,15 +65,6 @@ class Log:
 
         # Storing copy of full, unfiltered log_data
         self.original_log_data = self.log_data
-
-    # Function to update max line values using self.log_data
-    def set_properties(self):
-        self.last_log_dt = max([x["datetime"] for x in self.log_data])
-        self.last_log_line = [x for x in self.log_data if x["datetime"] == self.last_log_dt][-1]
-        self.last_log_type = self.last_log_line["logtype"]
-        self.last_backup_name = self.last_log_line["backup_name"]
-        self.last_log_filetype = self.last_log_line["filetype"]
-        self.last_log_action = self.last_log_line["action"]
 
     def filter_logs(self, backup_name, action):
 

@@ -1,14 +1,17 @@
 from datetime import datetime
-from Log import Log
 import logging
 import shutil
 import os
 import re
 
+from Log import Log
+
+from path_constants import LOGS_DIR
+
 
 # Defining class and functions representing a single source / output pair
 class BackUp(Log):
-    def __init__(self, source, output_targets, backup_name, limit_number, log_path='logs.txt'):
+    def __init__(self, source, output_targets, backup_name, limit_number, log_path=LOGS_DIR):
         self.backup_name = backup_name.replace("-", "")
         self.limit = limit_number
         self.source = source
@@ -75,7 +78,7 @@ class BackUp(Log):
                 shutil.copytree(self.source, output_subdir)
                 logging.info(f"{self.backup_name} | Folder | Saved '{output_subdir}'")
             else:
-                logging.info(f"{self.backup_name} | Folder | Did not save '{output_subdir}' - file already exists")
+                logging.info(f"{self.backup_name} | Folder | DidNothing '{output_subdir}' - file already exists")
             output_folder_details_after = self.get_folders(output_path)
             if len(output_folder_details_after) > self.limit:
                 folders_to_keep = output_folder_details_after[-abs(self.limit):]
@@ -118,7 +121,7 @@ class BackUp(Log):
                 logging.info(f"{self.backup_name} | File | Saved '{output_file}'")
             else:
                 logging.info(
-                    f"{self.backup_name} | File | Did not save '{output_file}' - file already exists")
+                    f"{self.backup_name} | File | DidNothing '{output_file}' - file already exists")
             output_folder_details_after = self.get_files(output_path)
             if len(output_folder_details_after) > self.limit:
                 files_to_keep = output_folder_details_after[-abs(self.limit):]
