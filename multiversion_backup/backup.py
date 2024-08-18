@@ -4,38 +4,43 @@ import shutil
 import os
 import re
 
-from Log import Log
-
-from path_constants import LOGS_DIR
+from multiversion_backup.log import Log
+from multiversion_backup.path_constants import ROOT_DIR
+from multiversion_backup.directory_creator import create_directory
 
 
 # Defining class and functions representing a single source / output pair
 class BackUp(Log):
-    def __init__(self, source, output_targets, backup_name, limit_number, log_path=LOGS_DIR):
+    def __init__(self, source, output_targets, backup_name, limit_number):
         self.backup_name = backup_name.replace("-", "")
         self.limit = limit_number
         self.source = source
         self.file_modified_dt = None
         self.folder_modified_dt = None
         self.file_last_modified_dt(self.source)
-        if type(output_targets) == str:
+        if type(output_targets) is str:
             self.output = [output_targets]
-        elif type(output_targets) == list:
+        elif type(output_targets) is list:
             self.output = output_targets
         else:
             output_exception_message = f"{self.backup_name} | execution halted - 'output_folders' var must be list or str"
             logging.error(output_exception_message)
             raise Exception(output_exception_message)
 
+        # Create the log directory and define the full path of the log file
+        logs_folder_path = create_directory(ROOT_DIR, "logs")
+        log_path = os.path.join(logs_folder_path, "logs.txt")
+
         # Defining logging settings, creating log file if it does not already exist
         logging.basicConfig(
             level=logging.INFO,
-            format=f"%(asctime)s | %(levelname)s | %(message)s",
+            format="%(asctime)s | %(levelname)s | %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
             filename=log_path
         )
 
-        # Inheriting everything from the Log superclass
+        # Inheriting everything from the Log superclass (see Log in the class definition BackUp(Log))
+        # The __init__ method of Log() takes the log_path argument
         super().__init__(log_path)
 
     # Get current datetime as a string
@@ -107,7 +112,7 @@ class BackUp(Log):
                     logging.info(f"{self.backup_name} | folder '{file_name}' in '{directory}'"
                                  f" did not start with prefix and was skipped")
         sorted_files = sorted(file_details, key=lambda x: x[2])
-        return file_details
+        return sorted_files
 
     # Copy the source file to the output folders
     # Delete the oldest files outside of the limit property
