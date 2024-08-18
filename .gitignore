@@ -2,3 +2,6 @@
 /GetFileModify.py
 /Tests/
 /scripts/
+/multiversion_backup/logs
+/multiversion_backup/__pycache__
+/.venv
