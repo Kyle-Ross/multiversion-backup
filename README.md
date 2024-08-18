@@ -5,59 +5,48 @@ A 'BackUp' class which copies a target file or folder to set output folders. Det
 
 I made this since I was frustrated with syncing behaviours of services like OneDrive, which when used to sync files that were actively in use, would cause lag and other issues.
 
-This method side steps the issue by allowing me to schedule when I copy certain folders to OneDrive, giving me incremental multi-version backup and synchronisation without OneDrive disruptively trying to synchronise files that are always changing like game saves and settings.
+This method side steps the issue by letting you schedule when you copy to OneDrive, providing incremental multi-version backup and synchronisation without OneDrive disruptively trying to synchronise files that are always changing like game saves and settings.
 
 ## How-To Use
 
-1. import the class: 
+### Import the BackUp class
 ```python
-from BackUp import BackUp
+from multiversion_backup import BackUp
 ```
-4. Create the BackUp object:
-``` python
-backup_object = BackUp(source,  # Source folder or file path as a string
-                       output_targets,  # String or list of output folder paths
-                       prefix_string,  # Prefix for the file name and log messages
-                       limit_number)  # Maximum amount of backups to keep
+### Create the BackUp object
+
+#### Per File backup
+
+```python
+backup_object = BackUp(r"F:\image.jpg",  # Source file as a string
+                     r"F:\File Backup",  # String or list of output folders
+                     "important_file",  # Prefix for the output file name and log messages
+                     3)  # Maximum amount of backups to keep
 ```
-3. Call the `.copy()` method
+
+#### Per Folder backup
+
+```python
+backup_object = BackUp(r"F:\Folder",  # Source folder as a string
+                       [r"F:\Folder Backup 1", r"F:\Folder Backup 2"],  # String or list of output folders
+                       "important_folder",  # Prefix for the output folder name and log messages
+                       5)  # Maximum amount of backups to keep
+```
+
+### Call the `.copy()` method
 
 ```python
 backup_object.copy()
 ```
 
-## Behaviours
+## What it does
 
-- A log file is generated and added when the copy method is used detailing backup activity (see example)
+- A version of the output is saved to the output folder or folders
+- A log file is generated and added when the copy method is used detailing the backup activity (see example)
 - Older backups outside of the specified limit are deleted
+- Backups won't occur if the backup has no changes
+
+## Troubleshooting
+
 - File or folder names in the output folders will be ignored if they do not start with the defined prefix
 - Changes to the datetime string formatting of the output files will raise exceptions
-
-## Example usage
-
-### Folder backup
-
-```python
-from BackUp import BackUp
-
-folder_backup = BackUp(r"F:\Folder",  # Source folder or file log_path as a string
-                       [r"F:\Folder Backup 1", r"F:\Folder Backup 2"],  # String or list of output folders
-                       "important_folder",  # Prefix for the file name and log messages
-                       5)  # Maximum amount of backups to keep
-
-folder_backup.copy()
-```
-
-### File backups
-```python
-from BackUp import BackUp
-
-file_backup = BackUp(r"F:\image.jpg",
-                     r"F:\File Backup",
-                     "important_file",
-                     3)
-
-file_backup.copy()
-```
-
-
