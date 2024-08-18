@@ -1,4 +1,4 @@
-from multiversion_backup.backup import BackUp
+from multiversion_backup import BackUp
 
 # Create BackUp objects
 important_backup = BackUp(
