@@ -81,7 +81,7 @@ class Log:
                                    f"This may be the first backup or a mispelling of the backup name. \n"
                                    f"Do you want to continue with backup '{backup_name}'? (y/n): \n").strip().lower()
                 if user_input == 'n':
-                    raise Exception(f"Rename self.backup_names() and re-run script")
+                    raise Exception("Rename self.backup_names() and re-run script")
                 elif user_input != 'y':
                     print("Invalid input. Please enter 'y' or 'n'.")
                 else:
