@@ -1,0 +1,1 @@
+poetry run python run_backups.py

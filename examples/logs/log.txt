@@ -1,0 +1,4 @@
+2024-08-18 12:29:05 | INFO | cs2_cfgs | Folder | Saved 'C:\Users\kylec\OneDrive\Backups\multiversion-backup\Counter-Strike 2 configs\cs2_cfgs - 2024-08-18 12-29 PM'
+2024-08-18 12:29:05 | INFO | cs2_cfgs | Folder | Deleted 'C:\Users\kylec\OneDrive\Backups\multiversion-backup\Counter-Strike 2 configs\cs2_cfgs - 2024-08-12 20-08 PM' - old folder outside limit (5)
+2024-08-18 12:30:20 | INFO | cs2_cfgs | Folder | Saved 'C:\Users\kylec\OneDrive\Backups\multiversion-backup\Counter-Strike 2 configs\cs2_cfgs - 2024-08-18 12-30 PM'
+2024-08-18 12:30:20 | INFO | cs2_cfgs | Folder | Deleted 'C:\Users\kylec\OneDrive\Backups\multiversion-backup\Counter-Strike 2 configs\cs2_cfgs - 2024-08-13 19-56 PM' - old folder outside limit (5)
