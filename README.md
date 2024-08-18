@@ -1,13 +1,23 @@
 # multiversion-backup
 
-## About
-A 'BackUp' class which copies a target file or folder to set output folders. Detects and keeps a set amount of backup versions and deletes old backups outside that range. 
+## Summary
+An easily configurable `BackUp` class which copies a target file or folder to set output folders. Detects and keeps a set amount of backup versions and deletes old backups outside that range. 
 
-I made this since I was frustrated with syncing behaviours of services like OneDrive, which when used to sync files that were actively in use, would cause lag and other issues.
+## Breakdown
 
-This method side steps the issue by letting you schedule when you copy to OneDrive, providing incremental multi-version backup and synchronisation without OneDrive disruptively trying to synchronise files that are always changing like game saves and settings.
+- You initialise a `BackUp` object and use `.copy()`
+- A version of the backup target is saved to the output folder or folders
+- A log file is generated, with logs detailing the backup activity (see example directory)
+- Older backups outside of the specified limit are deleted
+- Backups won't occur if the target hasn't changed (coming soon for folders)
 
-## How-To Use
+## Quick Install
+
+```
+pip install multiversion-backup
+```
+
+## Usage
 
 ### Import the BackUp class
 ```python
@@ -39,14 +49,13 @@ backup_object = BackUp(r"F:\Folder",  # Source folder as a string
 backup_object.copy()
 ```
 
-## What it does
-
-- A version of the output is saved to the output folder or folders
-- A log file is generated and added when the copy method is used detailing the backup activity (see example)
-- Older backups outside of the specified limit are deleted
-- Backups won't occur if the backup has no changes
-
 ## Troubleshooting
 
 - File or folder names in the output folders will be ignored if they do not start with the defined prefix
-- Changes to the datetime string formatting of the output files will raise exceptions
+- Changes to the datetime string formatting of the output file's names will raise exceptions
+
+## Why?
+
+I made this since I was frustrated with syncing behaviours of services like OneDrive, which when used to sync files that were actively in use, would cause lag and other issues.
+
+This method side steps the issue by letting you schedule when you copy to OneDrive, providing incremental multi-version backup and synchronisation without OneDrive disruptively trying to synchronise files that are always being actively used and changed like game saves and settings.
