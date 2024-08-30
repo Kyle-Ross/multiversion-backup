@@ -157,7 +157,7 @@ class BackUp(Log):
         if is_file:
             is_newer = True  # True by default, avoiding NoneType errors for new backups
             if last_log_dt is not None:
-                is_newer = self.file_modified_dt > self.filter_logs(self.backup_name, 'saves').last_log_dt
+                is_newer = self.file_modified_dt > last_log_dt
         # If the source is a directory
         if is_dir:
             self.copy_folder()
