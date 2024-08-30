@@ -152,11 +152,17 @@ class BackUp(Log):
         is_dir = os.path.isdir(self.source)
         is_file = os.path.isfile(self.source)
         is_either = any([is_dir, is_file])
+        last_log_dt = self.filter_logs(self.backup_name, 'saves').last_log_dt
+        # For files, check if it is newer than the last logged modify-date, store in is_newer
+        if is_file:
+            is_newer = True  # True by default, avoiding NoneType errors for new backups
+            if last_log_dt is not None:
+                is_newer = self.file_modified_dt > self.filter_logs(self.backup_name, 'saves').last_log_dt
         # If the source is a directory
         if is_dir:
             self.copy_folder()
         # If the source is a file
-        elif is_file and self.file_modified_dt > self.filter_logs(self.backup_name, 'saves').last_log_dt:
+        elif is_file and is_newer:
             file_ext = self.source.split(".")[-1]
             self.copy_file(file_ext)
         # if it was either a file or directory but failed the conditions above due to lack of changes
