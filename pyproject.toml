@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "multiversion-backup"
-version = "1.0.1"
+version = "1.0.2"
 description = "A 'BackUp' class which copies a target file or folder to set output folders. Detects and keeps a set amount of backup versions and deletes old backups outside that range."
 authors = ["Kyle Ross <107285758+Kyle-Ross@users.noreply.github.com>"]
 license = "MIT"
