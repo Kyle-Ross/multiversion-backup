@@ -36,7 +36,7 @@ class BackUp(Log):
             level=logging.INFO,
             format="%(asctime)s | %(levelname)s | %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
-            filename=log_path
+            filename=log_path,
         )
 
         # Inheriting everything from the Log superclass (see Log in the class definition BackUp(Log))
@@ -64,11 +64,15 @@ class BackUp(Log):
                     folder_datetime = self.get_dt_obj(folder_name.split(" - ", 1)[1])
                     folders.append((folder_path, folder_name, folder_datetime))
                 except ValueError:
-                    logging.warning(f"{self.backup_name} | folder '{folder_name}' in '{path}'"
-                                    f" did not match date time format and was skipped")
+                    logging.warning(
+                        f"{self.backup_name} | folder '{folder_name}' in '{path}'"
+                        f" did not match date time format and was skipped"
+                    )
             else:
-                logging.info(f"{self.backup_name} | folder '{folder_name}' in '{path}'"
-                             f" did not start with prefix and was skipped")
+                logging.info(
+                    f"{self.backup_name} | folder '{folder_name}' in '{path}'"
+                    f" did not start with prefix and was skipped"
+                )
         sorted_folders = sorted(folders, key=lambda x: x[2])
         return sorted_folders
 
@@ -83,15 +87,19 @@ class BackUp(Log):
                 shutil.copytree(self.source, output_subdir)
                 logging.info(f"{self.backup_name} | Folder | Saved '{output_subdir}'")
             else:
-                logging.info(f"{self.backup_name} | Folder | DidNothing '{output_subdir}' - file already exists")
+                logging.info(
+                    f"{self.backup_name} | Folder | DidNothing '{output_subdir}' - file already exists"
+                )
             output_folder_details_after = self.get_folders(output_path)
             if len(output_folder_details_after) > self.limit:
-                folders_to_keep = output_folder_details_after[-abs(self.limit):]
+                folders_to_keep = output_folder_details_after[-abs(self.limit) :]
                 for folder in output_folder_details_after:
                     if folder not in folders_to_keep:
                         shutil.rmtree(folder[0])
-                        logging.info(f"{self.backup_name} | Folder | Deleted '{folder[0]}'"
-                                     f" - old folder outside limit ({self.limit})")
+                        logging.info(
+                            f"{self.backup_name} | Folder | Deleted '{folder[0]}'"
+                            f" - old folder outside limit ({self.limit})"
+                        )
 
     # Get a list of files in the source folder
     def get_files(self, directory):
@@ -103,14 +111,20 @@ class BackUp(Log):
                 file_name_without_extension = os.path.splitext(file_name)[0]
                 if re.match(f"^{self.backup_name}", file_name):
                     try:
-                        file_datetime = self.get_dt_obj(file_name_without_extension.split(" - ", 1)[1])
+                        file_datetime = self.get_dt_obj(
+                            file_name_without_extension.split(" - ", 1)[1]
+                        )
                         file_details.append((file_path, file_name, file_datetime))
                     except ValueError:
-                        logging.warning(f"{self.backup_name} | file '{file_name}' in '{directory}'"
-                                        f" did not match date time format and was skipped")
+                        logging.warning(
+                            f"{self.backup_name} | file '{file_name}' in '{directory}'"
+                            f" did not match date time format and was skipped"
+                        )
                 else:
-                    logging.info(f"{self.backup_name} | folder '{file_name}' in '{directory}'"
-                                 f" did not start with prefix and was skipped")
+                    logging.info(
+                        f"{self.backup_name} | folder '{file_name}' in '{directory}'"
+                        f" did not start with prefix and was skipped"
+                    )
         sorted_files = sorted(file_details, key=lambda x: x[2])
         return sorted_files
 
@@ -126,15 +140,17 @@ class BackUp(Log):
                 logging.info(f"{self.backup_name} | File | Saved '{output_file}'")
             else:
                 logging.info(
-                    f"{self.backup_name} | File | DidNothing '{output_file}' - file already exists")
+                    f"{self.backup_name} | File | DidNothing '{output_file}' - file already exists"
+                )
             output_folder_details_after = self.get_files(output_path)
             if len(output_folder_details_after) > self.limit:
-                files_to_keep = output_folder_details_after[-abs(self.limit):]
+                files_to_keep = output_folder_details_after[-abs(self.limit) :]
                 for file in output_folder_details_after:
                     if file not in files_to_keep:
                         os.remove(file[0])
                         logging.info(
-                            f"{self.backup_name} | File | Deleted '{file[0]}' - old file outside limit ({self.limit})")
+                            f"{self.backup_name} | File | Deleted '{file[0]}' - old file outside limit ({self.limit})"
+                        )
 
     # Gets the last modified date of a file
     def file_last_modified_dt(self, file_path):
@@ -152,7 +168,7 @@ class BackUp(Log):
         is_dir = os.path.isdir(self.source)
         is_file = os.path.isfile(self.source)
         is_either = any([is_dir, is_file])
-        last_log_dt = self.filter_logs(self.backup_name, 'saves').last_log_dt
+        last_log_dt = self.filter_logs(self.backup_name, "saves").last_log_dt
         # For files, check if it is newer than the last logged modify-date, store in is_newer
         if is_file:
             is_newer = True  # True by default, avoiding NoneType errors for new backups

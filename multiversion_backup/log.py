@@ -19,7 +19,9 @@ class Log:
     # Function to update max line values using self.log_data
     def set_properties(self):
         self.last_log_dt = max([x["datetime"] for x in self.log_data])
-        self.last_log_line = [x for x in self.log_data if x["datetime"] == self.last_log_dt][-1]
+        self.last_log_line = [
+            x for x in self.log_data if x["datetime"] == self.last_log_dt
+        ][-1]
         self.last_log_type = self.last_log_line["logtype"]
         self.last_backup_name = self.last_log_line["backup_name"]
         self.last_log_filetype = self.last_log_line["filetype"]
@@ -27,7 +29,7 @@ class Log:
 
     def get_logs(self):
         # Open the file in read mode
-        with open(self.log_path, 'r') as file:
+        with open(self.log_path, "r") as file:
             lines = file.readlines()  # Read all lines and store them in a list
 
         # Get the datetimes from the log and add them to the list
@@ -36,12 +38,12 @@ class Log:
             line_dict = {}
 
             # Split log by sep
-            list_items = [x.strip() for x in line.split(sep='|')]
+            list_items = [x.strip() for x in line.split(sep="|")]
 
             # Get datetime
             try:
                 dt_str = list_items[0]
-                line_dict["datetime"] = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
+                line_dict["datetime"] = datetime.strptime(dt_str, "%Y-%m-%d %H:%M:%S")
             except ValueError:
                 print(f"Could not convert '{line}' to a datetime.")
 
@@ -56,9 +58,11 @@ class Log:
 
             # Get action that was taken per line
             line_dict["action"] = list_items[4].split("'")[0].strip()
-            accepted_actions = ('Saved', 'Deleted', 'DidNothing')
+            accepted_actions = ("Saved", "Deleted", "DidNothing")
             if line_dict["action"] not in accepted_actions:
-                raise Exception(f"Log file features unknown action status not in {accepted_actions}, please review")
+                raise Exception(
+                    f"Log file features unknown action status not in {accepted_actions}, please review"
+                )
 
             # Append the log dict object property
             self.log_data.append(line_dict)
@@ -67,39 +71,46 @@ class Log:
         self.original_log_data = self.log_data
 
     def filter_logs(self, backup_name, action):
-
         # Checking action input
-        allowed = ('all', 'saves', 'deletes')  # Check args
+        allowed = ("all", "saves", "deletes")  # Check args
         if action not in allowed:
             raise Exception(f"Argument for self.action() must be in f{allowed}")
         # Checking backup_name input
-        exists = 'y'
+        exists = "y"
         if backup_name not in [x["backup_name"] for x in self.log_data]:
-            exists = 'n'
+            exists = "n"
             while True:
-                user_input = input(f"Argument for self.backup_names() does not exist in log file. \n"
-                                   f"This may be the first backup or a mispelling of the backup name. \n"
-                                   f"Do you want to continue with backup '{backup_name}'? (y/n): \n").strip().lower()
-                if user_input == 'n':
+                user_input = (
+                    input(
+                        f"Argument for self.backup_names() does not exist in log file. \n"
+                        f"This may be the first backup or a mispelling of the backup name. \n"
+                        f"Do you want to continue with backup '{backup_name}'? (y/n): \n"
+                    )
+                    .strip()
+                    .lower()
+                )
+                if user_input == "n":
                     raise Exception("Rename self.backup_names() and re-run script")
-                elif user_input != 'y':
+                elif user_input != "y":
                     print("Invalid input. Please enter 'y' or 'n'.")
                 else:
                     print("Continuing with backup operation.")
                     break
 
         # Only set log values if backup name existed at outset
-        if exists == 'y':
+        if exists == "y":
             # Filter log_data property per backup_name
-            self.log_data = [x for x in self.original_log_data if x["backup_name"] == backup_name]
+            self.log_data = [
+                x for x in self.original_log_data if x["backup_name"] == backup_name
+            ]
 
             # Filter log_data property per action
-            if action == 'all':
+            if action == "all":
                 self.log_data = self.log_data
-            if action == 'saves':
-                self.log_data = [x for x in self.log_data if x["action"] == 'Saved']
-            if action == 'deletes':
-                self.log_data = [x for x in self.log_data if x["action"] == 'Deleted']
+            if action == "saves":
+                self.log_data = [x for x in self.log_data if x["action"] == "Saved"]
+            if action == "deletes":
+                self.log_data = [x for x in self.log_data if x["action"] == "Deleted"]
 
             # Update values for max properties based on the now filtered self.log_data
             self.set_properties()
